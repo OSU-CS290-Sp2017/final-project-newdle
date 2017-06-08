@@ -1,7 +1,7 @@
 {
-  "name": "assignment-5",
+  "name": "Newdle",
   "version": "1.0.0",
-  "description": "Dynamic content with Express and Handlebars",
+  "description": "A simple and easy to use scheduler",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/OSU-CS290-Sp2017/master-assignment-5.git"
+    "url": "git@github.com:OSU-CS290-Sp2017/final-project-newdle.git"
   },
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/OSU-CS290-Sp2017/master-assignment-5/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/OSU-CS290-Sp2017/master-assignment-5#readme",
+  "homepage": "",
   "dependencies": {
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
