@@ -24,18 +24,33 @@ var templateArgs = {
     newdle: newdleData
 };
 
-//if someone navigates to '/' render main newdlePage
+//if someone navigates to '/' render main newdle page, with information about the service and what it is
 app.get('/', function(req, res){
 	templateArgs = {
 		layout: 'main',
 		newdle: newdleData,
-		publishModalDisplay: true, //display publish button
-		createNewdleDisplay: true //display newdle container with "create new newdle"
+		//publishModalDisplay: false, //display publish button
+		//createNewdleDisplay: false //display newdle container with "create new newdle"
 	};
     res.render('newdlePage.handlebars', templateArgs);
 });
 
-//if someone navigates to '/newdles' render main newdlePage
+//if someone navigates to '/create' render main newdle creation page
+//displays publish modal and they can populate a page with days and times to sign up
+app.get('/create', function(req, res){
+        templateArgs = {
+            layout: 'main',
+            newdle: newdleData,
+            publishModalDisplay: true, //display publish button
+            createNewdleDisplay: true //display newdle container with "create new newdle"
+        };
+        //publishModalDisplay remains false when the page is loaded, it is only switched to true
+        //after the user adds some days to a newdle.
+        res.render('createNewdlePage.handlebars', templateArgs);
+        });
+
+//if someone navigates to '/*' it will render the JSON file containing that newdle's data
+//in here they are allowed to click days and sign up for a time
 app.get('/:id', function(req, res){
 	//if id doesn't exist, go to 404
 	if(!newdleData[req.params.id]){
@@ -53,10 +68,9 @@ app.get('/:id', function(req, res){
 		var newdleObject = require('./newdleData'+req.params.id);
 		templateArgs = {
 			layout: 'main',
-			newdle: newdleObject,
-			publishModalDisplay
+			newdle: newdleObject
 		};
-		res.render('newdlePage.handlebars', templateArgs);
+		res.render('displayNewdlePage.handlebars', templateArgs);
 	}
 });
 

@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html>
 	{{> header}}
-	{{#if createNewdleDisplay}}
 		<main class="newdle-container">
-			Please Create a new Newdle!
+			Welcome to Newdle! Created by Chris, Jacob, Cole, and Ethan!
 		</main>
-	{{/if}}
-	{{#if publishModalDisplay}}
-	{{else}}
-		<main class="newdle-container">
-			{{#each newdle}}
-				{{> newdle}}
-			{{/each}}
-		</main>
-	{{/if}}
-	{{#if publishModalDisplay}}
-		{{> createNewdleModal}}
-	{{/if}}
+
 </html>
