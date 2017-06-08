@@ -1,0 +1,60 @@
+To do list:
+home page:
+add about project and crap like that to home page
+create page:
+make navigation bar clickable and navigate to /create
+make modal for adding days work
+make publish button not show up until days are added to newdle creation page
+make days added to /create clickable
+make a new modal for adding times to certain days when clicking a day in the newdle creation page
+need to figure out a way to save in the correct JSON format (format is listed below)
+viewing page: (localhost:3000/0)
+make days clickable
+display times available during day that is clicked
+allow person to sign up for a time and save changes to json file
+admin page: create it all
+display blocks of times from JSON files.
+
+
+
+
+Issues: HTML date input field does NOT work on safari or firefox! We’re not going to waste time developing this feature so we will demo on chrome and use the built in HTML date input for the sake of deadline.
+
+Here’s the JSON format for each newdle. One newdle page contains an array of newdle days, and each days has associated openings, date, day, times, availability, and names.
+
+For example, this is newdleData0
+when a user navigates to localhost:3000/0 it loads newdleData0
+[
+  {
+    "openings": "3",
+	"day": "Friday",
+	"date": "2017-06-09",
+	"times": ["05:00","06:00","07:00","08:00","09:00"],
+	"available": ["true","false","false","true","true"],
+	"names": ["","Chris","Jason","",""]
+  },
+  {
+    "openings": "4",
+	"day": "Saturday",
+	"date": "2017-06-10",
+	"times": ["03:00","05:00","07:00","09:00","11:00"],
+	"available": ["true","false","true","true","true"],
+	"names": ["","Jack","","",""]
+  },
+  {
+    "openings": "1",
+	"day": "Sunday",
+	"date": "2017-06-11",
+	"times": ["10:00","12:00","14:00","16:00","18:00"],
+	"available": ["false","false","false","true","false"],
+	"names": ["Jacob","Tom","Kat","","Chelsea"]
+  },
+  {
+    "openings": "0",
+	"day": "Monday",
+	"date": "2017-06-12",
+	"times": ["10:00","12:00","14:00","16:00","18:00"],
+	"available": ["false","false","false","false","false"],
+	"names": ["Jacob","Tom","Kat","George","Chelsea"]
+  }
+]
