@@ -1,0 +1,62 @@
+[
+  {
+    "openings": 2,
+    "day": "Thursday",
+    "date": "2017-06-1",
+    "times": [
+      "06:30",
+      "06:32"
+    ],
+    "available": [
+      "true",
+      "true"
+    ],
+    "names": [
+      "",
+      ""
+    ]
+  },
+  {
+    "openings": 3,
+    "day": "Friday",
+    "date": "2017-06-2",
+    "times": [
+      "07:40",
+      "09:30",
+      "06:20"
+    ],
+    "available": [
+      "true",
+      "true",
+      "true"
+    ],
+    "names": [
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "openings": 4,
+    "day": "Saturday",
+    "date": "2017-06-3",
+    "times": [
+      "07:20",
+      "12:40",
+      "16:20",
+      "18:40"
+    ],
+    "available": [
+      "true",
+      "true",
+      "true",
+      "true"
+    ],
+    "names": [
+      "",
+      "",
+      "",
+      ""
+    ]
+  }
+]

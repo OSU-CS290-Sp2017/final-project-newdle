@@ -1,6 +1,6 @@
 [
   {
-    "openings": "0",
+    "openings": 0,
 	"day": "Monday",
 	"date": "2017-06-12",
 	"times": ["10:00","12:00","14:00","16:00","18:00"],
@@ -8,7 +8,7 @@
 	"names": ["Jacob","Tom","Kat","George","Chelsea"]
   },
   {
-    "openings": "4",
+    "openings": 4,
 	"day": "Saturday",
 	"date": "2017-06-10",
 	"times": ["03:00","05:00","07:00","09:00","11:00"],
@@ -16,7 +16,7 @@
 	"names": ["","Jack","","",""]
   },
   {
-    "openings": "3",
+    "openings": 3,
 	"day": "Friday",
 	"date": "2017-06-09",
 	"times": ["05:00","06:00","07:00","08:00","09:00"],
@@ -24,7 +24,7 @@
 	"names": ["","Chris","Jason","",""]
   },
   {
-    "openings": "1",
+    "openings": 1,
 	"day": "Sunday",
 	"date": "2017-06-11",
 	"times": ["10:00","12:00","14:00","16:00","18:00"],

@@ -90,6 +90,7 @@ a:focus {
   font-weight: bold;
 }
 
+
 #create-newdle-button {
   position: fixed;
   right: 30px;
@@ -116,6 +117,7 @@ a:focus {
   background-color: #319df6;
 }
 
+
 #create-newdle-button:focus {
   outline: none;
 }
@@ -131,6 +133,26 @@ a:focus {
 }
 
 #create-newdle-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+  overflow: scroll;
+}
+
+#edit-newdle-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+  overflow: scroll;
+}
+
+#signup-newdle-modal {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -222,6 +244,10 @@ a:focus {
 }
 
 .modal-footer .modal-cancel-button:hover {
+  background-color: #eee;
+}
+
+.modal-footer .modal-add-button:hover {
   background-color: #eee;
 }
 

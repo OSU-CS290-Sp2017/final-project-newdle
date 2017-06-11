@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	{{> header}}
+	{{#if createNewdleDisplay}}
+		{{> createNewdleModal}}
+		{{> editNewdleModal}}
+	{{/if}}
+	{{#if publishModalDisplay}}
+		<main class="newdle-container">
+			{{#each newdle}}
+				{{> newdle}}
+			{{/each}}
+		</main>
+	{{/if}}
+</html>

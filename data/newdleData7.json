@@ -1,0 +1,50 @@
+[
+  {
+    "openings": 3,
+    "day": "Thursday",
+    "date": "2017-06-1",
+    "times": [
+      "20:30",
+      "23:40",
+      "16:20"
+    ],
+    "available": [
+      "true",
+      "true",
+      "true"
+    ],
+    "names": [
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "openings": 1,
+    "day": "Friday",
+    "date": "2017-06-2",
+    "times": [
+      "15:20"
+    ],
+    "available": [
+      "true"
+    ],
+    "names": [
+      ""
+    ]
+  },
+  {
+    "openings": 1,
+    "day": "Saturday",
+    "date": "2017-06-3",
+    "times": [
+      "06:20"
+    ],
+    "available": [
+      "true"
+    ],
+    "names": [
+      ""
+    ]
+  }
+]
