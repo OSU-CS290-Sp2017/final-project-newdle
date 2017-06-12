@@ -1,0 +1,15 @@
+{{!Will need to change class names to day/time unique maybe?}}
+<article class="day-time">
+    <div class="day-content">
+      <p class="day-text">
+		{{time}}
+        
+        {{#if this.available}}
+          {Empty}
+          {{else}}
+            {{name}}
+          {{/if}}
+        
+      </p>
+    </div>
+  </article>

@@ -1,0 +1,65 @@
+[
+    {
+        "openings": "3",
+        "day": "Friday",
+        "date": "2017-06-09",
+        "times": [{
+                "time": "05:00",
+                "available": 1,
+                "name": ""
+            },
+            {
+                "time": "06:00",
+                "available": 0,
+                "name": "Chris"
+            },
+            {
+                "time": "07:00",
+                "available": 0,
+                "name": "Jason"
+            },
+            {
+                "time": "08:00",
+                "available": 1,
+                "name": ""
+            },
+            {
+                "time": "09:00",
+                "available": 1,
+                "name": ""
+            }
+            ]
+  },
+    {
+        "openings": "2",
+        "day": "Saturday",
+        "date": "2017-06-10",
+        "times": [{
+                "time": "16:00",
+                "available": 1,
+                "name": ""
+            },
+            {
+                "time": "17:00",
+                "available": 0,
+                "name": "Barry"
+            },
+            {
+                "time": "18:00",
+                "available": 0,
+                "name": "Gerald"
+            },
+            {
+                "time": "19:00",
+                "available": 0,
+                "name": "Yvette"
+            },
+            {
+                "time": "20:00",
+                "available": 1,
+                "name": ""
+            }
+            ]
+  }
+
+]

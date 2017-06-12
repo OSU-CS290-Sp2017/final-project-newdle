@@ -72,8 +72,26 @@ app.post("/data", function(req, res){
     });
 });
 
+
+/*This is a test for the implementation of the detailed day view.
+ It's currently static, but obviously the goal is to grab/display this info dynamically
+ via the links on each day
+ The general idea is it grabbing and displaying/sending the data for a particular day
+*/
+app.get('/days', function(req, res){
+	console.log('serving: using dayData1.json');
+		var dayObject = require('./data/dayData1.json');
+		templateArgs = {
+			layout: 'main',
+			times: dayObject[0].times,
+		};
+        console.log(dayObject[0].times); //testing
+		res.render('displayDay.handlebars', templateArgs);
+});
+
 //if someone navigates to '/*' it will render the JSON file containing that newdle's data
 //in here they are allowed to click days and sign up for a time
+
 app.get('/:id', function(req, res){
 	//if id doesn't exist, go to 404
 	console.log('serving: '+'./data/newdleData'+req.params.id+'.json');
@@ -97,6 +115,7 @@ app.get('/:id', function(req, res){
 		res.render('displayNewdlePage.handlebars', templateArgs);
 	}
 });
+
 
 //404 page for anything undefined
 app.get('*', function(req, res){
