@@ -414,8 +414,9 @@ window.addEventListener('DOMContentLoaded', function () {
 	var editModalAcceptButton = document.querySelector('#edit-newdle-modal .modal-accept-button');
 	editModalAcceptButton.addEventListener('click', saveInputDay);
 	
-	/*
+	
 	//signup listeners
+	/*
 	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
 	signupModalCloseButton.addEventListener('click', closeSignupNewdleModal);
 

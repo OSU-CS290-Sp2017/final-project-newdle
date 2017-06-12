@@ -95,20 +95,34 @@ app.get('/days', function(req, res){
 
 app.get('/sign_up', function(req, res){
 	var fileCounter = 0;
-	var newdleObjs = [];
+	var fileObjs = [];
 	
-	while(fs.existsSync('./data/newdleData'+fileCounter+'.json'){
-		var newdleObj = require('./data/newdleData'+fileCounter+'.json')
+	while(fs.existsSync('./data/newdleData'+fileCounter+'.json')){
+		var newdleObjs = require('./data/newdleData'+fileCounter+'.json')
+		var totalOpenings = 0;
 		
-		if(newdleObj.openings > 0){
-			newdleObj.id = fileCounter;
-			newdleObjs.push(newdleObj);
+		//get number of openings within a file
+		for(var i = 0; i < newdleObjs.length; i++){
+			totalOpenings += parseInt(newdleObjs[i].openings);
+		}
+		
+		//push that file into array if it has openings
+		if(totalOpenings > 0){
+			var fileObj = {id: fileCounter, openings: totalOpenings};
+			
+			fileObjs.push(fileObj);
 		}
 		
 		fileCounter++;
 	}
 	
-	res.render('displayOpenings', newdleObjs);
+	templateArgs = {
+		layout: 'main',
+		fileObjs: fileObjs
+	};
+	
+	//send array of file IDs with number of openings
+	res.render('displayOpenings', templateArgs);
 });
 
 //if someone navigates to '/*' it will render the JSON file containing that newdle's data
