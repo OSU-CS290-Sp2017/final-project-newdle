@@ -1,0 +1,11 @@
+{{! This is a handlebars partial for the individual day display. }}
+
+<!DOCTYPE html>
+<html>
+    {{> header}}
+    <main class="day-container">
+        {{#each times}}
+            {{> dayTimes}}
+        {{/each}}
+    </main>
+</html>
