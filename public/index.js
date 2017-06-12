@@ -13,7 +13,7 @@ function showPublishNewdleModal() {
 	}
 }
 
-/*function showSignupNewdleModal(evt) {
+function showSignupNewdleModal(evt) {
 	var modalBackdrop = document.getElementById('modal-backdrop');
 	var editNewdleModal = document.getElementById('signup-newdle-modal');
 	//remove the hidden classlist
@@ -26,7 +26,7 @@ function showPublishNewdleModal() {
 	var headerText = document.createTextNode('Hours Available for Sign-up on: '+globalNewdleElems[evt.target.id].date);
 	header3.appendChild(headerText);
 	newdleHeaderElement.appendChild(header3);
-}*/
+}
 
 function closeSignupNewdleModal() {
 	var modalBackdrop = document.getElementById('modal-backdrop');
@@ -189,6 +189,13 @@ function closeEditNewdleModal() {
 
 function refreshDOMContent(){
 	//need to refresh DOM content of all newdle days here.
+	var newdles = document.getElementsByClassName('newdle');
+	
+	for(var i = 0; i < newdles.length; i++){
+		var openings = newdles[i].querySelector('#openings-count');
+		
+		openings.text =  globalNewdleElems[i].openings + " openings";
+	}
 }
 
 
@@ -324,6 +331,7 @@ function insertNewNewdle() {
 			newdleStartDay.setDate(newdleStartDay.getDate() + 1);
 		}
 		insertEditButtons();
+		//insertSignUpButtons();
 		closeCreateNewdleModal();
 	}else{
 		alert('You must specify both a proper start and end date');
@@ -350,7 +358,9 @@ function insertEditButtons(){
 }
 
 
-/* code to add sign up buttons to each newdle
+//code to add sign up buttons to each newdle
+/*
+function insertSignUpButtons(){
 	var newdleAttributionElement = document.getElementsByClassName('newdle-attribution');
 	var newButton = [];
 	var buttonLabel = [];
@@ -366,8 +376,8 @@ function insertEditButtons(){
 		newButton[i].appendChild(buttonLabel[i]);
 		newdleAttributionElement[i].appendChild(newButton[i]);
 	}
+}
 */
-
 
 
 //event listeners
