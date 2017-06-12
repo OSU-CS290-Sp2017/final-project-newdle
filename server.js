@@ -89,6 +89,28 @@ app.get('/days', function(req, res){
 		res.render('displayDay.handlebars', templateArgs);
 });
 
+//server request for Sign Up button click
+//reads in all .json data files and pushes any with 'openings' into array
+//responds with res.render(), passes array of () to display 
+
+app.get('/sign_up', function(req, res){
+	var fileCounter = 0;
+	var newdleObjs = [];
+	
+	while(fs.existsSync('./data/newdleData'+fileCounter+'.json'){
+		var newdleObj = require('./data/newdleData'+fileCounter+'.json')
+		
+		if(newdleObj.openings > 0){
+			newdleObj.id = fileCounter;
+			newdleObjs.push(newdleObj);
+		}
+		
+		fileCounter++;
+	}
+	
+	res.render('displayOpenings', newdleObjs);
+});
+
 //if someone navigates to '/*' it will render the JSON file containing that newdle's data
 //in here they are allowed to click days and sign up for a time
 

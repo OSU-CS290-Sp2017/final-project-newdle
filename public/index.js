@@ -194,7 +194,7 @@ function refreshDOMContent(){
 	for(var i = 0; i < newdles.length; i++){
 		var openings = newdles[i].querySelector('#openings-count');
 		
-		openings.text =  globalNewdleElems[i].openings + " openings";
+		openings.text = globalNewdleElems[i].openings + " openings";
 	}
 }
 
