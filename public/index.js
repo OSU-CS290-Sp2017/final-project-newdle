@@ -1,5 +1,6 @@
 var allNewdleElems = [];
 var globalNewdleElems =[];
+var currentAccountJSON;
 var editingIndex = 0;
 var timesAdded = 0;
 
@@ -13,17 +14,17 @@ function showPublishNewdleModal() {
 	}
 }
 
-function showSignupNewdleModal(evt) {
+function showSignupNewdleModal(newdleNum) {
 	var modalBackdrop = document.getElementById('modal-backdrop');
 	var editNewdleModal = document.getElementById('signup-newdle-modal');
 	//remove the hidden classlist
 	modalBackdrop.classList.remove('hidden');
 	editNewdleModal.classList.remove('hidden');
-	//get index in globalNewdleElems for which the edit button was pressed
-	editingIndex = evt.target.id;
+	//get index in globalNewdleElems for which the sign up button was pressed
+	//editingIndex = newdleNum;
 	var newdleHeaderElement = document.getElementById('header-insertion');
 	var header3 = document.createElement('H3'); 
-	var headerText = document.createTextNode('Hours Available for Sign-up on: '+globalNewdleElems[evt.target.id].date);
+	var headerText = document.createTextNode('Hours Available for Sign-up on: '+currentAccountJSON[newdleNum].date);
 	header3.appendChild(headerText);
 	newdleHeaderElement.appendChild(header3);
 }
@@ -357,8 +358,42 @@ function insertEditButtons(){
 	}
 }
 
+//gets JSON object and displayNewdlePage html from server,
+//need to render client-side because globalNewdleElems must be populated and
+//buttons for signup modal need hookups
+function initSignupView(accountID){
+	var accountsViewReq = new XMLHttpRequest();
+	var accountsJSONReq = new XMLHttpRequest();
+	
+	viewUrl = "/" + accountID;
+	jsonUrl = "/" + accountID + "/json"; 
+	
+	//synchronous calls No-No! Need to change this later
+	accountsViewReq.open('GET', viewUrl, false);
+	accountsJSONReq.open('GET', jsonUrl, false);
+	
+	accountsJSONReq.send();
+	//stores JSON object for one account(file)
+	currentAccountJSON = JSON.parse(accountsJSONReq.responseText);
+	console.log(currentAccountJSON[0].openings);
+	//sends request for handlebars render of displayNewdlePage
+	accountsViewReq.send();
+	//writes response html
+	document.write(accountsViewReq.responseText);
+	
+	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
+	signupModalCloseButton.addEventListener('click', closeSignupNewdleModal);
+
+	var signupModalCancelButton = document.querySelector('#signup-newdle-modal .modal-cancel-button');
+	signupModalCancelButton.addEventListener('click', closeSignupNewdleModal);
+
+	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
+	signupModalAcceptButton.addEventListener('click', closeSignupNewdleModal);
+}
+
 
 //code to add sign up buttons to each newdle
+
 /*
 function insertSignUpButtons(){
 	var newdleAttributionElement = document.getElementsByClassName('newdle-attribution');
@@ -414,17 +449,9 @@ window.addEventListener('DOMContentLoaded', function () {
 	var editModalAcceptButton = document.querySelector('#edit-newdle-modal .modal-accept-button');
 	editModalAcceptButton.addEventListener('click', saveInputDay);
 	
-	
 	//signup listeners
 	/*
-	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
-	signupModalCloseButton.addEventListener('click', closeSignupNewdleModal);
-
-	var signupModalCancelButton = document.querySelector('#signup-newdle-modal .modal-cancel-button');
-	signupModalCancelButton.addEventListener('click', closeSignupNewdleModal);
-
-	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
-	signupModalAcceptButton.addEventListener('click', closeSignupNewdleModal);
+	
 	*/
 	
 	

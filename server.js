@@ -130,7 +130,7 @@ app.get('/sign_up', function(req, res){
 
 app.get('/:id', function(req, res){
 	//if id doesn't exist, go to 404
-	console.log('serving: '+'./data/newdleData'+req.params.id+'.json');
+	console.log(('serving: '+'./data/newdleData'+req.params.id+'.json'), "for view");
 	if(!fs.existsSync('./data/newdleData'+req.params.id+'.json')){
 		templateArgs = {
 			layout: 'main',
@@ -144,11 +144,32 @@ app.get('/:id', function(req, res){
 	//id exists, get data required from newdle and serve
 	else{
 		var newdleObject = require('./data/newdleData'+req.params.id+'.json');
+		
+		for(var i = 0; i < newdleObject.length; i++){
+			newdleObject[i].id = i;
+		}
+		
 		templateArgs = {
 			layout: 'main',
 			newdle: newdleObject
 		};
 		res.render('displayNewdlePage.handlebars', templateArgs);
+	}
+});
+
+//request handling return of file data object
+
+app.get('/:id/json', function(req, res){
+	//file exists, get JSON data from file and serve
+	console.log(('serving: '+'./data/newdleData'+req.params.id+'.json'), "JSON data");
+	if(fs.existsSync('./data/newdleData'+req.params.id+'.json')){
+		var data = require('./data/newdleData'+req.params.id+'.json');
+		res.send(data);
+	}
+	//if file doesn't exist, go to 404
+	else{
+		res.status(404);
+		res.render('404Page.handlebars', templateArgs);
 	}
 });
 
