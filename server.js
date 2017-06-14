@@ -72,6 +72,18 @@ app.post("/data", function(req, res){
     });
 });
 
+app.post("/accept_sign_up", function(req, res){
+	var object;
+	object = req.body.object;
+	fs.writeFile('./data/newdleData'+nextNewdle+'.json', JSON.stringify(object, null, 2), function (err) {
+        if (err) {
+          res.status(500).send("Unable to save times to \"database\".");
+        } else {
+          res.status(200).send();
+        }
+    });
+});
+
 
 /*This is a test for the implementation of the detailed day view.
  It's currently static, but obviously the goal is to grab/display this info dynamically
@@ -147,6 +159,14 @@ app.get('/:id', function(req, res){
 		
 		for(var i = 0; i < newdleObject.length; i++){
 			newdleObject[i].id = i;
+			
+			//controls whether newdle gets a sign up button or not
+			if(newdleObject[i].openings != 0){
+				newdleObject[i].timeAvailable = true;
+			}
+			else{
+				newdleObject[i].timeAvailable = false;
+			}
 		}
 		
 		templateArgs = {

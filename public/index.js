@@ -25,8 +25,64 @@ function showSignupNewdleModal(newdleNum) {
 	var newdleHeaderElement = document.getElementById('header-insertion');
 	var header3 = document.createElement('H3'); 
 	var headerText = document.createTextNode('Hours Available for Sign-up on: '+currentAccountJSON[newdleNum].date);
+	var timesContainer = editNewdleModal.querySelector('.newdle-input-element');
+	
+	for(var i = 0; i < currentAccountJSON[newdleNum].times.length; i++){
+		//for each open time
+		if(currentAccountJSON[newdleNum].names[i] == ""){
+			//create a time label and checkbox
+			var timeSlot = document.createElement('input');
+			var timeLabel = document.createElement('label');
+			var timeTxt = document.createTextNode(prettifyTime(currentAccountJSON[newdleNum].times[i]));
+			
+			timeSlot.setAttribute('type', 'checkbox');
+			timeSlot.setAttribute('id', ('time-slot' + i));
+			timeSlot.setAttribute('value', currentAccountJSON[newdleNum].times[i]);
+			timeLabel.setAttribute('for', ('time-slot' + i));
+			
+			timeLabel.appendChild(timeTxt);
+			timesContainer.appendChild(timeSlot);
+			timesContainer.appendChild(timeLabel);
+		}
+	}
+	
 	header3.appendChild(headerText);
 	newdleHeaderElement.appendChild(header3);
+	
+	//add listeners for sign up modal interaction
+	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
+	signupModalCloseButton.addEventListener('click', closeSignupNewdleModal);
+
+	var signupModalCancelButton = document.querySelector('#signup-newdle-modal .modal-cancel-button');
+	signupModalCancelButton.addEventListener('click', closeSignupNewdleModal);
+
+	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
+	signupModalAcceptButton.addEventListener('click', closeSignupNewdleModal);
+}
+
+function prettifyTime(uglyTime){
+	var suffix;
+	var timeBits = uglyTime.split(':');
+	var hours = timeBits[0];
+	var minutes = timeBits[1];
+	var prettyTime;
+	
+	if(hours > 11){
+		suffix = "PM";
+		if(hours > 12){
+			hours = String(hours - 12);
+		}
+	}
+	else{
+		suffix = "AM";
+	}
+	
+	if(hours.charAt(0) == '0'){
+		hours = hours.slice(1, 2);
+	}
+	
+	prettyTime = hours + ':' + minutes + ' ' + suffix;
+	return(prettyTime);
 }
 
 function closeSignupNewdleModal() {
@@ -35,6 +91,27 @@ function closeSignupNewdleModal() {
 	//add the hidden class list
 	modalBackdrop.classList.add('hidden');
 	signupNewdleModal.classList.add('hidden');
+	
+	//remove dynammic header
+	var newdleHeaderElement = document.getElementById('header-insertion');
+	var header3 = newdleHeaderElement.querySelector('H3');
+	newdleHeaderElement.removeChild(header3);
+	
+	//remove time slots
+	var timesContainer = signupNewdleModal.querySelector('.newdle-input-element');
+	while(timesContainer.firstChild){
+		timesContainer.removeChild(timesContainer.firstChild)
+	}
+	
+	//remove listeners
+	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
+	signupModalCloseButton.removeEventListener('click', closeSignupNewdleModal);
+
+	var signupModalCancelButton = document.querySelector('#signup-newdle-modal .modal-cancel-button');
+	signupModalCancelButton.removeEventListener('click', closeSignupNewdleModal);
+
+	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
+	signupModalAcceptButton.removeEventListener('click', closeSignupNewdleModal);
 }
 
 //this is the x and cancel button in the create newdle dialog.
@@ -296,7 +373,26 @@ function saveFile() {
 	};
 	postRequest.send(JSON.stringify(postBody));
 }
- 
+
+/* Work in progress
+function saveTimes(timesObj) {
+	var postURL = "/accept_sign_up";
+	var postRequest = new XMLHttpRequest();
+	postRequest.open('POST', postURL);
+	postRequest.setRequestHeader('Content-Type', 'application/json');
+	postRequest.addEventListener('load', function(event){
+		var error;
+		if (event.target.status !== 200){
+			error = event.target.response;
+		}
+	});
+
+	var postBody = {
+		object: timesObj
+	};
+	postRequest.send(JSON.stringify(postBody));
+}
+*/ 
 
 function generateNewNewdleElem(newdleDay, newdleDate) {
 	var newdleTemplate = Handlebars.templates.newdle;
@@ -375,20 +471,10 @@ function initSignupView(accountID){
 	accountsJSONReq.send();
 	//stores JSON object for one account(file)
 	currentAccountJSON = JSON.parse(accountsJSONReq.responseText);
-	console.log(currentAccountJSON[0].openings);
 	//sends request for handlebars render of displayNewdlePage
 	accountsViewReq.send();
 	//writes response html
 	document.write(accountsViewReq.responseText);
-	
-	var signupModalCloseButton = document.querySelector('#signup-newdle-modal .modal-close-button');
-	signupModalCloseButton.addEventListener('click', closeSignupNewdleModal);
-
-	var signupModalCancelButton = document.querySelector('#signup-newdle-modal .modal-cancel-button');
-	signupModalCancelButton.addEventListener('click', closeSignupNewdleModal);
-
-	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
-	signupModalAcceptButton.addEventListener('click', closeSignupNewdleModal);
 }
 
 
@@ -448,12 +534,4 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	var editModalAcceptButton = document.querySelector('#edit-newdle-modal .modal-accept-button');
 	editModalAcceptButton.addEventListener('click', saveInputDay);
-	
-	//signup listeners
-	/*
-	
-	*/
-	
-	
-	
 });

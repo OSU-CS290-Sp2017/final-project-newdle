@@ -5,9 +5,10 @@
 		{{date}}
       </p>
       <p class="newdle-attribution">
-		
         <a id="openings-count" href="#">{{openings}} openings</a>
+		{{#if timeAvailable}}
 		<button id={{id}} class="signup-button" onclick="showSignupNewdleModal({{id}})">Sign Up</button>
+		{{/if}}
       </p>
     </div>
   </article>
