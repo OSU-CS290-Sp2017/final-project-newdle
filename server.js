@@ -72,16 +72,40 @@ app.post("/data", function(req, res){
     });
 });
 
+/*
+sent object{"accountNum" : currentAccountJSON[0].accountNum,
+					  "dayInstance" : signupNewdle,
+					  "name" : name,
+					  "timesToSave" : timesToSave
+	}
+*/
 app.post("/accept_sign_up", function(req, res){
-	var object;
-	object = req.body.object;
-	fs.writeFile('./data/newdleData'+nextNewdle+'.json', JSON.stringify(object, null, 2), function (err) {
+	
+	var editJSON = require('./data/newdleData'+req.body.accountNum+'.json');
+	
+	for(var i = 0; i < req.body.timesToSave.length; i++){
+		for(var b = 0; b < editJSON[req.body.dayInstance].times.length; b++){
+			if(req.body.timesToSave[i] == editJSON[req.body.dayInstance].times[b]){
+				editJSON[req.body.dayInstance].names[b] = req.body.name;
+				editJSON[req.body.dayInstance].available[b] = 'false';
+				editJSON[req.body.dayInstance].openings--;
+				
+				if(editJSON[req.body.dayInstance].openings == 0){
+					editJSON[req.body.dayInstance].timeAvailable = 'false';
+				}
+				break;
+			}
+		}
+	}
+	
+	fs.writeFile('./data/newdleData'+req.body.accountNum+'.json', JSON.stringify(editJSON, null, 2), function (err) {
         if (err) {
           res.status(500).send("Unable to save times to \"database\".");
         } else {
           res.status(200).send();
         }
     });
+	
 });
 
 
@@ -184,6 +208,10 @@ app.get('/:id/json', function(req, res){
 	console.log(('serving: '+'./data/newdleData'+req.params.id+'.json'), "JSON data");
 	if(fs.existsSync('./data/newdleData'+req.params.id+'.json')){
 		var data = require('./data/newdleData'+req.params.id+'.json');
+		
+		for(var i = 0; i < data.length; i++){
+			data[i].accountNum = req.params.id;
+		}
 		res.send(data);
 	}
 	//if file doesn't exist, go to 404

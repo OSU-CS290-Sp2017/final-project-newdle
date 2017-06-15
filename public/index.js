@@ -3,6 +3,7 @@ var globalNewdleElems =[];
 var currentAccountJSON;
 var editingIndex = 0;
 var timesAdded = 0;
+var signupNewdle;
 
 //this is the publish button on the bottom right, it will save the current newdle to a file
 function showPublishNewdleModal() {
@@ -20,8 +21,8 @@ function showSignupNewdleModal(newdleNum) {
 	//remove the hidden classlist
 	modalBackdrop.classList.remove('hidden');
 	editNewdleModal.classList.remove('hidden');
-	//get index in globalNewdleElems for which the sign up button was pressed
-	//editingIndex = newdleNum;
+	signupNewdle = newdleNum;
+	
 	var newdleHeaderElement = document.getElementById('header-insertion');
 	var header3 = document.createElement('H3'); 
 	var headerText = document.createTextNode('Hours Available for Sign-up on: '+currentAccountJSON[newdleNum].date);
@@ -37,7 +38,9 @@ function showSignupNewdleModal(newdleNum) {
 			
 			timeSlot.setAttribute('type', 'checkbox');
 			timeSlot.setAttribute('id', ('time-slot' + i));
+			timeSlot.setAttribute('class', 'time-slot');
 			timeSlot.setAttribute('value', currentAccountJSON[newdleNum].times[i]);
+			timeLabel.setAttribute('id', ('time-label' + i));
 			timeLabel.setAttribute('for', ('time-slot' + i));
 			
 			timeLabel.appendChild(timeTxt);
@@ -57,7 +60,67 @@ function showSignupNewdleModal(newdleNum) {
 	signupModalCancelButton.addEventListener('click', closeSignupNewdleModal);
 
 	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
-	signupModalAcceptButton.addEventListener('click', closeSignupNewdleModal);
+	signupModalAcceptButton.addEventListener('click', acceptSignupNewdleModal);
+}
+
+function acceptSignupNewdleModal(){
+	var timesContainer = document.getElementById('signup-newdle-modal').querySelector('.newdle-input-element');
+	var timeChkBoxes = document.getElementsByClassName('time-slot');
+	var signupName = document.getElementById('input-signup-name').value;
+	var timesArray = [];
+	
+	//grab checked boxes' time values, then remove them from modal
+	for(var i = 0; i < timeChkBoxes.length; i++){
+		if(timeChkBoxes[i].checked == true){
+			var timeLabels = timesContainer.getElementsByTagName('label');
+			console.log(timeLabels.length);
+			//remove their labels too
+			for(var b = 0; b < timeLabels.length; b++){
+				if(timeLabels[b].getAttribute('for') == timeChkBoxes[i].getAttribute('id')){
+					timesContainer.removeChild(timeLabels[b]);
+				}
+			}
+			
+			timesArray.push(timeChkBoxes[i].value);
+			timesContainer.removeChild(timeChkBoxes[i]);
+		}
+	}
+	
+	if(signupName != ""){
+		if(timesArray.length > 0){
+			saveTimes(signupName, timesArray);
+		}
+		else{
+			alert("Please enter a valid name");
+		}
+	}
+	else{
+		alert("Please check atleast one time");
+	}
+	
+	closeSignupNewdleModal();
+}
+
+function saveTimes(name, timesToSave) {
+	var postURL = "/accept_sign_up";
+	var postRequest = new XMLHttpRequest();
+	
+	postRequest.open('POST', postURL);
+	postRequest.setRequestHeader('Content-Type', 'application/json');
+	postRequest.addEventListener('load', function(event){
+		var error;
+		if (event.target.status !== 200){
+			error = event.target.response;
+		}
+	});
+
+	var jsonObject = {"accountNum" : currentAccountJSON[0].accountNum,
+					  "dayInstance" : signupNewdle,
+					  "name" : name,
+					  "timesToSave" : timesToSave
+	};
+	
+	postRequest.send(JSON.stringify(jsonObject));
 }
 
 function prettifyTime(uglyTime){
@@ -112,6 +175,8 @@ function closeSignupNewdleModal() {
 
 	var signupModalAcceptButton = document.querySelector('#signup-newdle-modal .modal-accept-button');
 	signupModalAcceptButton.removeEventListener('click', closeSignupNewdleModal);
+	
+	signupNewdleModal.querySelector('#input-signup-name').value = "";
 }
 
 //this is the x and cancel button in the create newdle dialog.
@@ -377,26 +442,6 @@ function saveFile() {
 	};
 	postRequest.send(JSON.stringify(postBody));
 }
-
-/* Work in progress
-function saveTimes(timesObj) {
-	var postURL = "/accept_sign_up";
-	var postRequest = new XMLHttpRequest();
-	postRequest.open('POST', postURL);
-	postRequest.setRequestHeader('Content-Type', 'application/json');
-	postRequest.addEventListener('load', function(event){
-		var error;
-		if (event.target.status !== 200){
-			error = event.target.response;
-		}
-	});
-
-	var postBody = {
-		object: timesObj
-	};
-	postRequest.send(JSON.stringify(postBody));
-}
-*/ 
 
 function generateNewNewdleElem(newdleDay, newdleDate) {
 	var newdleTemplate = Handlebars.templates.newdle;
