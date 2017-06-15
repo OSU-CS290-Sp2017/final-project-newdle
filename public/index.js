@@ -246,12 +246,14 @@ function loadTimeInputs(){
 		var newdleContentElement = document.getElementsByClassName('newdle-input-element-selector');
 		var timeInput = document.createElement('input');
 		var timeText = document.createTextNode('Enter a time: ');
+		var br = document.createElement("br");
 		//set text to what it was when saved
 		timeInput.value = globalNewdleElems[editingIndex].times[i];
 		timeInput.setAttribute('type','text');
 		timeInput.classList.add('input-checker');
 		newdleContentElement[0].appendChild(timeText);
 		newdleContentElement[0].appendChild(timeInput);
+		newdleContentElement[0].appendChild(br);
 	}
 	
 }
