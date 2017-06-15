@@ -2,6 +2,13 @@ body {
   font-family: Bitter, Helvetica, sans-serif;
   margin: 0;
   background-color: #2C3E50;
+  height: 100%;
+}
+
+
+html{
+  height: 100%;
+  overflow-y: hidden;
 }
 
 a {
@@ -22,7 +29,20 @@ a {
   background-color: #212f3d;
   font-size: 18px;
   line-height: 22px;
+  width: 150px;
+  border-style:solid;
+  border-color: #D5D8DC;
+  height: 92vh;
+  overflow: hidden;
 }
+
+/*.navbar-div{
+  height:100%;
+  width: 150px;
+  background-color: #212f3d;
+  border-style:solid;
+  border-color: #D5D8DC;
+}*/
 
 .navlist {
   margin: 0 0 0 20px;
@@ -31,7 +51,7 @@ a {
 }
 
 .navitem {
-  display: inline-block;
+  display: block;
   color: #D5D8DC;
 }
 

@@ -228,10 +228,12 @@ function addTimeInput(){
 	var newdleContentElement = document.getElementsByClassName('newdle-input-element-selector');
 	var timeInput = document.createElement('input');
 	var timeText = document.createTextNode('Enter a time: ');
+	var br = document.createElement("br");
 	timeInput.setAttribute('type','text');
 	timeInput.classList.add('input-checker');
 	newdleContentElement[0].appendChild(timeText);
 	newdleContentElement[0].appendChild(timeInput);
+	newdleContentElement[0].appendChild(br);
 	timesAdded++;
 }
 
