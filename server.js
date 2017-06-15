@@ -81,8 +81,8 @@ sent object{"accountNum" : currentAccountJSON[0].accountNum,
 */
 app.post("/accept_sign_up", function(req, res){
 	
-	var editJSON = require('./data/newdleData'+req.body.accountNum+'.json');
-	
+	//var editJSON = require('./data/newdleData'+req.body.accountNum+'.json');
+	/*
 	for(var i = 0; i < req.body.timesToSave.length; i++){
 		for(var b = 0; b < editJSON[req.body.dayInstance].times.length; b++){
 			if(req.body.timesToSave[i] == editJSON[req.body.dayInstance].times[b]){
@@ -97,8 +97,9 @@ app.post("/accept_sign_up", function(req, res){
 			}
 		}
 	}
+	*/
 	
-	fs.writeFile('./data/newdleData'+req.body.accountNum+'.json', JSON.stringify(editJSON, null, 2), function (err) {
+	fs.writeFile('./data/newdleData'+req.body[0].accountNum+'.json', JSON.stringify(req.body, null, 2), function (err) {
         if (err) {
           res.status(500).send("Unable to save times to \"database\".");
         } else {
@@ -134,7 +135,7 @@ app.get('/sign_up', function(req, res){
 	var fileObjs = [];
 	
 	while(fs.existsSync('./data/newdleData'+fileCounter+'.json')){
-		var newdleObjs = require('./data/newdleData'+fileCounter+'.json')
+		var newdleObjs = JSON.parse(fs.readFileSync(('./data/newdleData'+fileCounter+'.json'), 'utf8'));
 		var totalOpenings = 0;
 		
 		//get number of openings within a file
@@ -179,7 +180,9 @@ app.get('/:id', function(req, res){
 	}
 	//id exists, get data required from newdle and serve
 	else{
-		var newdleObject = require('./data/newdleData'+req.params.id+'.json');
+		var newdleObject = JSON.parse(fs.readFileSync(('./data/newdleData'+req.params.id+'.json'), 'utf8'));
+		
+		//var newdleObject = require('./data/newdleData'+req.params.id+'.json');
 		
 		for(var i = 0; i < newdleObject.length; i++){
 			newdleObject[i].id = i;
@@ -207,12 +210,14 @@ app.get('/:id/json', function(req, res){
 	//file exists, get JSON data from file and serve
 	console.log(('serving: '+'./data/newdleData'+req.params.id+'.json'), "JSON data");
 	if(fs.existsSync('./data/newdleData'+req.params.id+'.json')){
-		var data = require('./data/newdleData'+req.params.id+'.json');
+		var JSONObject = JSON.parse(fs.readFileSync(('./data/newdleData'+req.params.id+'.json'), 'utf8'));
 		
-		for(var i = 0; i < data.length; i++){
-			data[i].accountNum = req.params.id;
+		//var data = require('./data/newdleData'+req.params.id+'.json');
+		
+		for(var i = 0; i < JSONObject.length; i++){
+			JSONObject[i].accountNum = req.params.id;
 		}
-		res.send(data);
+		res.send(JSONObject);
 	}
 	//if file doesn't exist, go to 404
 	else{

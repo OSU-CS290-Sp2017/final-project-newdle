@@ -63,45 +63,72 @@ function showSignupNewdleModal(newdleNum) {
 	signupModalAcceptButton.addEventListener('click', acceptSignupNewdleModal);
 }
 
+//function for signup modal 'accept' button click
 function acceptSignupNewdleModal(){
-	var timesContainer = document.getElementById('signup-newdle-modal').querySelector('.newdle-input-element');
+	//var timesContainer = document.getElementById('signup-newdle-modal').querySelector('.newdle-input-element');
 	var timeChkBoxes = document.getElementsByClassName('time-slot');
 	var signupName = document.getElementById('input-signup-name').value;
-	var timesArray = [];
+	var hasCheckedBoxes = false;
 	
-	//grab checked boxes' time values, then remove them from modal
-	for(var i = 0; i < timeChkBoxes.length; i++){
-		if(timeChkBoxes[i].checked == true){
-			var timeLabels = timesContainer.getElementsByTagName('label');
-			console.log(timeLabels.length);
-			//remove their labels too
-			for(var b = 0; b < timeLabels.length; b++){
-				if(timeLabels[b].getAttribute('for') == timeChkBoxes[i].getAttribute('id')){
-					timesContainer.removeChild(timeLabels[b]);
+	if(signupName != ""){	
+			//loop through checkboxes, 
+			for(var i = 0; i < timeChkBoxes.length; i++){
+				//if checked
+				if(timeChkBoxes[i].checked == true){
+					hasCheckedBoxes = true;
+					//find corresponding time in account JSON of current newdle and
+					//fill in name for that time, set available 'false', decrement openings
+					for(var b = 0; b < currentAccountJSON[signupNewdle].times.length; b++){
+						if(timeChkBoxes[i].value == currentAccountJSON[signupNewdle].times[b]){
+							currentAccountJSON[signupNewdle].names[b] = signupName;
+							currentAccountJSON[signupNewdle].available[b] = 'false';
+							currentAccountJSON[signupNewdle].openings--;
+				
+							//set no times available flag
+							if(currentAccountJSON[signupNewdle].openings == 0){
+								currentAccountJSON[signupNewdle].timeAvailable = 'false';
+							}
+						}
+					}
+		
+				//timesArray.push(timeChkBoxes[i].value);
 				}
 			}
-			
-			timesArray.push(timeChkBoxes[i].value);
-			timesContainer.removeChild(timeChkBoxes[i]);
-		}
-	}
-	
-	if(signupName != ""){
-		if(timesArray.length > 0){
-			saveTimes(signupName, timesArray);
+		if(hasCheckedBoxes == true){
+			//saveTimes(signupName, timesArray);
+			saveTimes();
 		}
 		else{
-			alert("Please enter a valid name");
+			alert("Please check atleast one time");
 		}
 	}
 	else{
-		alert("Please check atleast one time");
+		alert("Please enter a valid name");
 	}
 	
 	closeSignupNewdleModal();
+	
+	window.location.href = '/sign_up';
+	
+	/*Test code for refresh of sign up page, not working
+	var refreshRequest = new XMLHttpRequest();
+	
+	refreshRequest.open('GET', '/sign_up');
+	refreshRequest.addEventListener('load', function(event){
+		var error;
+		if (event.target.status !== 200){
+			error = event.target.response;
+		}
+		else{
+			document.write(refreshRequest.responseText);
+		}
+	});
+	
+	refreshRequest.send();
+	*/
 }
 
-function saveTimes(name, timesToSave) {
+function saveTimes() {
 	var postURL = "/accept_sign_up";
 	var postRequest = new XMLHttpRequest();
 	
@@ -114,11 +141,7 @@ function saveTimes(name, timesToSave) {
 		}
 	});
 
-	var jsonObject = {"accountNum" : currentAccountJSON[0].accountNum,
-					  "dayInstance" : signupNewdle,
-					  "name" : name,
-					  "timesToSave" : timesToSave
-	};
+	var jsonObject = currentAccountJSON;
 	
 	postRequest.send(JSON.stringify(jsonObject));
 }
