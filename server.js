@@ -184,6 +184,7 @@ app.get('/:id/json', function(req, res){
 	console.log(('serving: '+'./data/newdleData'+req.params.id+'.json'), "JSON data");
 	if(fs.existsSync('./data/newdleData'+req.params.id+'.json')){
 		var data = require('./data/newdleData'+req.params.id+'.json');
+		data.accountNum = req.params.id;
 		res.send(data);
 	}
 	//if file doesn't exist, go to 404
