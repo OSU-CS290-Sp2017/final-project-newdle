@@ -2,13 +2,6 @@ body {
   font-family: Bitter, Helvetica, sans-serif;
   margin: 0;
   background-color: #2C3E50;
-  height: 100%;
-}
-
-
-html{
-  height: 100%;
-  overflow-y: hidden;
 }
 
 a {
@@ -30,33 +23,32 @@ a {
   font-size: 18px;
   line-height: 22px;
   width: 150px;
-  border-style:solid;
-  border-color: #D5D8DC;
-  height: 92vh;
-  overflow: hidden;
+  height: 92.3%;
+  display:inline;
+  position: absolute;
 }
 
-/*.navbar-div{
-  height:100%;
-  width: 150px;
-  background-color: #212f3d;
-  border-style:solid;
-  border-color: #D5D8DC;
-}*/
-
 .navlist {
-  margin: 0 0 0 20px;
   padding: 0;
-  display:block;
+  width: 150px;
+  display:inline-block;
+  margin: 0 0 0 0px;
 }
 
 .navitem {
-  display: block;
+  display: inline;
   color: #D5D8DC;
+  width: 150px;
+  
 }
 
 a {
   color: #343434;
+}
+
+ul{
+  display:inline-block;
+  padding: 0;
 }
 
 a:hover,
@@ -69,11 +61,16 @@ a:focus {
 }
 
 .navlink a {
-  padding: 8px 10px;
+  padding: 8px 15px;
   display: inline-block;
   color:white;
+  border: 0px;
+  margin: 0 0 0 0px;
 }
 
+li {
+  margin: 0 0 0 0px;
+}
 
 .navlink a:hover, .navlink a:focus{
   color: #FF8521;
@@ -83,9 +80,8 @@ a:focus {
   box-shadow: inset 0 -3px #319df6;
 }
 
-
 .newdle-container {
-  margin: 50px 10%;
+  margin: 50px 160px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -280,14 +276,16 @@ a:focus {
 }
 
 .modal-footer .modal-cancel-button:hover {
-  background-color: #eee;
+  color: #fff;
+  background-color: red;
 }
 
 .modal-footer .modal-add-button{
   background-color:#D5D8DC;
 }
 .modal-footer .modal-add-button:hover {
-  background-color: #eee;
+  color: #fff;
+  background-color: #0D52AF;
 }
 
 .modal-footer .modal-accept-button {
@@ -296,7 +294,7 @@ a:focus {
 }
 
 .modal-footer .modal-accept-button:hover {
-  background-color: #087dde;
+  background-color: green;
 }
 
 .error-container {
