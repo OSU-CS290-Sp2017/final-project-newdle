@@ -10,6 +10,7 @@ function showPublishNewdleModal() {
 	console.log(globalNewdleElems);
 	if (typeof globalNewdleElems !== 'undefined' && globalNewdleElems.length > 0){
 		saveFile();
+        alert("Your Newdle is now available on the sign-up page!");
 	}else{
 		alert("you must enter some days!");
 	}
