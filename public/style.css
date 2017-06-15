@@ -1,7 +1,7 @@
 body {
-  font-family: Roboto, Helvetica, sans-serif;
+  font-family: Bitter, Helvetica, sans-serif;
   margin: 0;
-  background-color: #eee;
+  background-color: #2C3E50;
 }
 
 a {
@@ -12,13 +12,14 @@ a {
   margin: 0;
   padding: 10px 20px;
   font-size: 30px;
-  font-weight: 100;
-  background-color: #319df6;
-  color: #fff;
+  font-weight: 500;
+  background-color: #FF8521;
+  color: #212f3d;
+  text-align:center;
 }
 
 .navbar {
-  background-color: #fff;
+  background-color: #212f3d;
   font-size: 18px;
   line-height: 22px;
 }
@@ -26,10 +27,12 @@ a {
 .navlist {
   margin: 0 0 0 20px;
   padding: 0;
+  display:block;
 }
 
 .navitem {
   display: inline-block;
+  color: #D5D8DC;
 }
 
 a {
@@ -38,7 +41,7 @@ a {
 
 a:hover,
 a:focus {
-  color: #319df6;
+  color: #FF8521;
 }
 
 a:focus {
@@ -48,6 +51,12 @@ a:focus {
 .navlink a {
   padding: 8px 10px;
   display: inline-block;
+  color:white;
+}
+
+
+.navlink a:hover, .navlink a:focus{
+  color: #FF8521;
 }
 
 .navlink.active {
@@ -62,13 +71,13 @@ a:focus {
 }
 
 .newdle {
-  flex: 0 1 28%;
+  flex: 0 1 20%;
   display: flex;
   margin: 2px;
   padding: 20px;
   border: 1px solid #dadada;
   border-radius: 2px;
-  background-color: #fff;
+  background-color: #D5D8DC;
 }
 
 .newdle-icon {
@@ -95,31 +104,27 @@ a:focus {
   position: fixed;
   right: 30px;
   bottom: 30px;
-  height: 60px;
-  width: 60px;
+  height: 70px;
+  width: 70px;
   border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  background-color: #ff1010;
-  color: #fff;
+/*  border-radius: 30px;
+*/  font-size: 18px;
+  background-color: #D5D8DC;
+  color: #212f3d;
+  text-align:center;
   cursor: pointer;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.25);
 }
 
-#create-newdle-button:hover,
-#create-newdle-button:focus {
+#create-newdle-button:hover {
   right: 27px;
   bottom: 27px;
-  height: 66px;
-  width: 66px;
-  border-radius: 33px;
-  font-size: 18px;
-  background-color: #319df6;
-}
-
-
-#create-newdle-button:focus {
-  outline: none;
+  height: 80px;
+  width: 80px;
+  font-size: 22px;
+/*  font-weight: 500; */
+  color: #212f3d;
+  background-color: #FF8521;
 }
 
 #modal-backdrop {
@@ -172,7 +177,7 @@ a:focus {
   min-width: 350px;
   min-height: 300px;
   margin: 40px auto;
-  background-color: #fff;
+  background-color: #D5D8DC;
   border-radius: 15px;
 }
 
@@ -222,6 +227,13 @@ a:focus {
   border: 1px solid #aaa;
 }
 
+.input-checker {
+  flex: 6 200px;
+  padding: 8px;
+  font-size: 20px;
+  border: 1px solid #aaa;
+}
+
 .newdle-input-element textarea {
   min-height: 64px;
 }
@@ -243,16 +255,23 @@ a:focus {
   cursor: pointer;
 }
 
+.modal-footer .modal-cancel-button {
+  background-color: #D5D8DC;
+}
+
 .modal-footer .modal-cancel-button:hover {
   background-color: #eee;
 }
 
+.modal-footer .modal-add-button{
+  background-color:#D5D8DC;
+}
 .modal-footer .modal-add-button:hover {
   background-color: #eee;
 }
 
 .modal-footer .modal-accept-button {
-  background-color: #319df6;
+  background-color: #FF8521;
   color: #fff;
 }
 
@@ -275,4 +294,8 @@ a:focus {
   margin: 10px 0;
   font-size: 36px;
   font-weight: 400;
+}
+
+.welcome-text{
+  color:#fff;
 }
